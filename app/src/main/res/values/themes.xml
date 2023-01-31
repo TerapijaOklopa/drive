@@ -14,4 +14,26 @@
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.Drive</item>
     </style>
+
+    <style name="AppTheme.Dialog.Base" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@color/overlay_background</item>
+    </style>
+
+    <!-- TextView -->
+    <style name="DriveTextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="DriveTextView.Title">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
 </resources>

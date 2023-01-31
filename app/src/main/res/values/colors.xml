@@ -4,9 +4,6 @@
     <color name="colorPrimaryDark">@color/dark_blue</color>
     <color name="colorAccent">@color/blue</color>
 
-    <!-- Background -->
-    <color name="background">@color/lightGray</color>
-
     <!-- Supporting colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
@@ -16,4 +13,19 @@
     <color name="dark_blue">#0043EF</color>
     <color name="grey">#4A5561</color>
     <color name="teal">#2BDFF3</color>
+
+    <!-- Transparent -->
+    <color name="black_25">#40000000</color>
+
+    <!-- Background -->
+    <color name="background">@color/lightGray</color>
+    <color name="overlay_background">@color/black_25</color>
+
+    <!-- Toolbar -->
+    <color name="toolbar_primary_icon_color">@color/black</color>
+    <color name="toolbar_primary_background_color">@color/white</color>
+
+    <!-- Text -->
+    <color name="text_color">@color/black</color>
+
 </resources>
