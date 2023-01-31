@@ -9,6 +9,24 @@
         android:id="@+id/navigation_login"
         android:name="com.mobile.drive.mobile.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_drive"
+            app:destination="@id/navigation_drive"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_drive"
+        android:name="com.mobile.drive.mobile.ui.drive.DriveFragment"
+        android:label="DriveFragment"
+        tools:layout="@layout/fragment_drive" />
 
 </navigation>

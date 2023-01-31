@@ -28,4 +28,11 @@
     <!-- Text -->
     <color name="text_color">@color/black</color>
 
+    <!-- Outlined button -->
+    <color name="outlined_button_stroke_color">@color/black</color>
+    <color name="outlined_button_stroke_pressed_color">@color/grey</color>
+    <color name="outlined_button_stroke_disabled_color">@color/black_25</color>
+    <color name="outlined_button_text_color">@color/black</color>
+    <color name="outlined_button_disable_text_color">@color/black_25</color>
+
 </resources>

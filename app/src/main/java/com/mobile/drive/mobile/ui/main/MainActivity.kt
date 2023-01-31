@@ -11,7 +11,7 @@ import com.mobile.drive.mobile.ui.BaseActivity
 class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
-    private val graphRootDestinations = setOf(R.id.navigation_login)
+    private val graphRootDestinations = setOf(R.id.navigation_login, R.id.navigation_drive)
 
     override val layoutId: Int
         get() = R.layout.activity_main

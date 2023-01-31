@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Drive</string>
+
+    <!-- Posts -->
+    <string name="login_welcome_title">Welcome to</string>
+    <string name="login_small_pdf">SmallPdf</string>
+    <string name="login_button_title">Sign in with Google</string>
 </resources>
