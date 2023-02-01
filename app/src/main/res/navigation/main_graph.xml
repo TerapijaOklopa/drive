@@ -27,6 +27,17 @@
         android:id="@+id/navigation_drive"
         android:name="com.mobile.drive.mobile.ui.drive.DriveFragment"
         android:label="DriveFragment"
-        tools:layout="@layout/fragment_drive" />
+        tools:layout="@layout/fragment_drive">
+
+        <action
+            android:id="@+id/action_login"
+            app:destination="@id/navigation_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

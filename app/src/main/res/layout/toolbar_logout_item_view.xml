@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_logout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:paddingEnd="@dimen/common_activity_padding"
+    tools:ignore="RtlSymmetry">
+
+    <TextView
+        style="@style/DriveTextView.Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/outlined_toolbar_button_background"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/menu_item_padding_horizontal"
+        android:paddingVertical="@dimen/menu_item_padding_vertical"
+        android:text="@string/logout" />
+
+</FrameLayout>

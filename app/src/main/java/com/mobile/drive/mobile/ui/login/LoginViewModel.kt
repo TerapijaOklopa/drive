@@ -6,7 +6,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.mobile.drive.data.session.SessionRepository
 import com.mobile.drive.mobile.vo.Resource
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -14,8 +16,11 @@ class LoginViewModel(
     private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
-    private val _loggedIn = MutableSharedFlow<LoginContent>()
-    val loggedIn = _loggedIn.asSharedFlow()
+//    private val _loggedIn = MutableSharedFlow<LoginContent>()
+//    val loggedIn = _loggedIn.asSharedFlow()
+
+    private var _loggedIn = MutableStateFlow(LoginContent())
+    val loggedIn = _loggedIn.asStateFlow()
 
     init {
         userLoggedIn()

@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">Drive</string>
+    <string name="logout">Logout</string>
 
     <!-- Errors -->
     <string name="error_unexpected_message">An unexpected error occurred</string>
 
-    <!-- Posts -->
+    <!-- Login -->
     <string name="login_welcome_title">Welcome to</string>
     <string name="login_small_pdf">SmallPdf</string>
     <string name="login_button_title">Sign in with Google</string>
+
+    <!-- Drive -->
+    <string name="drive_title">SmallPdf Drive</string>
 </resources>
