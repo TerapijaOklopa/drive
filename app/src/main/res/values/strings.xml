@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Drive</string>
 
+    <!-- Errors -->
+    <string name="error_unexpected_message">An unexpected error occurred</string>
+
     <!-- Posts -->
     <string name="login_welcome_title">Welcome to</string>
     <string name="login_small_pdf">SmallPdf</string>
