@@ -8,5 +8,5 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel { LoginViewModel(get(), get()) }
-    viewModel { DriveViewModel(get()) }
+    viewModel { DriveViewModel(get(), get()) }
 }

@@ -20,6 +20,7 @@
     <!-- Background -->
     <color name="background">@color/lightGray</color>
     <color name="overlay_background">@color/black_25</color>
+    <color name="list_item_background">@color/seashell</color>
 
     <!-- Toolbar -->
     <color name="toolbar_primary_icon_color">@color/black</color>
