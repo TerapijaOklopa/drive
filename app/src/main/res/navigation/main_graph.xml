@@ -38,6 +38,30 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/main_graph"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_folder_details"
+            app:destination="@id/navigation_folder_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_folder_details"
+        android:name="com.mobile.drive.mobile.ui.folderdetails.FolderDetailsFragment"
+        android:label="FolderDetailsFragment"
+        tools:layout="@layout/fragment_folder_details">
+
+        <argument
+            android:name="folderId"
+            app:argType="string" />
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>
