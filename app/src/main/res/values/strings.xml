@@ -13,4 +13,5 @@
     <!-- Drive -->
     <string name="drive_title">SmallPdf Drive</string>
     <string name="drive_no_item_title">There is no files</string>
+    <string name="drive_search_title">Search files</string>
 </resources>

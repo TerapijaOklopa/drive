@@ -2,9 +2,12 @@ package com.mobile.drive.mobile.ui.drive
 
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.mobile.drive.R
 import com.mobile.drive.data.drive.DriveRepository
 import com.mobile.drive.mobile.ui.model.FileUiModel
 import com.mobile.drive.mobile.ui.model.FileUiModel.Companion.toFileUIModelList
+import com.mobile.drive.mobile.utils.DelayedTextWatcher
+import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.vo.ErrorData
 import com.mobile.drive.mobile.vo.Resource
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +43,57 @@ class DriveViewModel(
                         it.copy(
                             state = Resource.error(
                                 ErrorData(
-                                    message = t.message ?: ""
+                                    message = t.message
+                                        ?: Strings.get(R.string.error_unexpected_message)
+                                )
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    var searchWatcher = DelayedTextWatcher(
+        callback = object : DelayedTextWatcher.Callback {
+            override fun onTextChange(text: String) {
+                if (_uiContent.value.query == text) {
+                    return
+                }
+                if (text.isEmpty()) {
+                    _uiContent.update {
+                        it.copy(query = "", state = Resource.loading())
+                    }
+                    getDriveFiles()
+                } else {
+                    searchFiles(text)
+                }
+            }
+        }
+    )
+
+    private fun searchFiles(query: String) {
+        _uiContent.update {
+            it.copy(state = Resource.loading())
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = driveRepository.searchFiles(query)
+            if (response.isSuccess) {
+                _uiContent.update {
+                    it.copy(
+                        query = query,
+                        state = Resource.success(response.getOrNull()?.toFileUIModelList())
+                    )
+                }
+            } else {
+                response.exceptionOrNull()?.let { t ->
+                    _uiContent.update {
+                        it.copy(
+                            query = query,
+                            state = Resource.error(
+                                ErrorData(
+                                    message = t.message
+                                        ?: Strings.get(R.string.error_unexpected_message)
                                 )
                             )
                         )
@@ -52,5 +105,6 @@ class DriveViewModel(
 }
 
 data class DriveContent(
+    val query: String = "",
     val state: Resource<List<FileUiModel>> = Resource.loading()
 )

@@ -43,6 +43,8 @@ class DriveFragment : MenuProvider, BaseFragment(
     private fun setupView() = with(binding) {
         adapter = FileAdapter { file -> onItemClick(file) }
         fileList.adapter = adapter
+        search.editText?.setText(viewModel.uiContent.value.query)
+        search.editText?.addTextChangedListener(viewModel.searchWatcher)
     }
 
     private fun setupObservers() = with(viewModel) {
