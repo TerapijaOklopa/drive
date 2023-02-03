@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.mobile.drive.data.drive.DriveRepository
 import com.mobile.drive.mobile.ui.model.FileUiModel
 import com.mobile.drive.mobile.ui.model.FileUiModel.Companion.toFileUIModelList
+import com.mobile.drive.mobile.utils.coroutines.CoroutineDispatcherProvider
 import com.mobile.drive.mobile.vo.ErrorData
 import com.mobile.drive.mobile.vo.Resource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 
 class FolderDetailsViewModel(
     private val driveRepository: DriveRepository,
+    private val dispatcherProvider: CoroutineDispatcherProvider,
     folderId: String
 ) : ViewModel() {
 
@@ -31,11 +32,12 @@ class FolderDetailsViewModel(
         _uiContent.update {
             it.copy(state = Resource.loading())
         }
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(dispatcherProvider.io).launch {
             val response = driveRepository.getFolderFiles(id)
-            if (response.isSuccess) {
+            val result = response.getOrNull()
+            if (response.isSuccess && result != null) {
                 _uiContent.update {
-                    it.copy(state = Resource.success(response.getOrNull()?.toFileUIModelList()))
+                    it.copy(state = Resource.success(result.toFileUIModelList()))
                 }
             } else {
                 folderIdList.removeLast()

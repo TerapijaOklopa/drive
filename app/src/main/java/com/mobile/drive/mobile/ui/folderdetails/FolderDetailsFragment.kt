@@ -20,7 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class FolderDetailsFragment : MenuProvider, BaseFragment(
-    title = "Drive",
     showBack = true
 ) {
     private var binding: FragmentFolderDetailsBinding by autoCleared()

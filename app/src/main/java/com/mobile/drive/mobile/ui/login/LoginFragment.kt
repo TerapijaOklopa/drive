@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.mobile.drive.R
 import com.mobile.drive.databinding.FragmentLoginBinding
 import com.mobile.drive.mobile.ui.BaseFragment
+import com.mobile.drive.mobile.utils.GoogleUtil
 import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.autoCleared
 import com.mobile.drive.mobile.vo.Status
@@ -36,7 +37,7 @@ class LoginFragment : BaseFragment(
         setupView()
         setupObservers()
         googleSignInClient =
-            GoogleSignIn.getClient(requireActivity(), viewModel.googleSignInOptions)
+            GoogleSignIn.getClient(requireActivity(), GoogleUtil.googleSignInOptions)
         return binding.root
     }
 

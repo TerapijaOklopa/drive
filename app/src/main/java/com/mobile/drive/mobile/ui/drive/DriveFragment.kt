@@ -12,6 +12,7 @@ import com.mobile.drive.R
 import com.mobile.drive.databinding.FragmentDriveBinding
 import com.mobile.drive.mobile.ui.BaseFragment
 import com.mobile.drive.mobile.ui.model.FileUiModel
+import com.mobile.drive.mobile.utils.GoogleUtil
 import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.autoCleared
 import com.mobile.drive.mobile.vo.Status
@@ -35,7 +36,7 @@ class DriveFragment : MenuProvider, BaseFragment(
         setupView()
         setupObservers()
         googleSignInClient =
-            GoogleSignIn.getClient(requireActivity(), viewModel.googleSignInOptions)
+            GoogleSignIn.getClient(requireActivity(), GoogleUtil.googleSignInOptions)
         activity?.addMenuProvider(this, viewLifecycleOwner)
         return binding.root
     }
