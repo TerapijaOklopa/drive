@@ -1,8 +1,11 @@
 package com.mobile.drive.mobile.ui.model
 
+import android.os.Parcelable
 import com.google.api.services.drive.model.File
 import com.mobile.drive.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class FileUiModel(
     val id: String?,
     val parentId: List<String>?,
@@ -10,7 +13,7 @@ data class FileUiModel(
     val mimeType: String?,
     val icon: Int,
     val isFolder: Boolean
-) {
+) : Parcelable {
     companion object {
         fun List<File>.toFileUIModelList() = map { it.toFileUIModel() }
 

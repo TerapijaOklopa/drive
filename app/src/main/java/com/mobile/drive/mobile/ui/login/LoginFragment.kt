@@ -17,7 +17,7 @@ import com.mobile.drive.mobile.ui.BaseFragment
 import com.mobile.drive.mobile.utils.GoogleUtil
 import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.autoCleared
-import com.mobile.drive.mobile.vo.Status
+import com.mobile.drive.mobile.utils.Status
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,15 +51,16 @@ class LoginFragment : BaseFragment(
         viewLifecycleOwner.lifecycleScope.launch {
             loggedIn.collect {
                 when (it.state.status) {
-                    Status.RUNNING -> {}
+                    Status.RUNNING -> showLoading()
                     Status.SUCCESS -> {
                         if (it.state.data == true) {
                             navigateToDrive()
                         }
                     }
-                    Status.FAILED -> {
-                        showError(it.state.error?.message ?: "")
-                    }
+                    Status.FAILED -> showError(
+                        it.state.error?.message
+                            ?: Strings.get(R.string.error_unexpected_message)
+                    )
                     Status.EMPTY -> { // do nothing
                     }
                 }

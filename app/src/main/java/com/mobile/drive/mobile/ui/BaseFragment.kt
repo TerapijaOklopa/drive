@@ -3,8 +3,7 @@ package com.mobile.drive.mobile.ui
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleEventObserver
 import com.google.android.material.snackbar.Snackbar
 import com.mobile.drive.mobile.ui.dialog.DriveLoadingDialog
 
@@ -12,7 +11,7 @@ abstract class BaseFragment(
     var showToolbar: Boolean = true,
     var showBack: Boolean = false,
     var title: String? = null
-) : Fragment(), LifecycleObserver {
+) : Fragment() {
     interface BaseFragmentInterface {
         fun setToolbarVisible(visible: Boolean)
         fun setToolbarTitle(text: String?)
@@ -24,22 +23,26 @@ abstract class BaseFragment(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        lifecycle.addObserver(this)
+        lifecycle.addObserver(lifecycleEventObserver)
     }
 
     override fun onDetach() {
         super.onDetach()
-        lifecycle.removeObserver(this)
+        lifecycle.removeObserver(lifecycleEventObserver)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onCreated() {
-        if (activity is BaseFragmentInterface) {
-            with(activity as BaseFragmentInterface) {
-                setToolbarVisible(showToolbar)
-                setToolbarTitle(title)
-                setShowBack(showBack)
+    var lifecycleEventObserver = LifecycleEventObserver { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                if (activity is BaseFragmentInterface) {
+                    with(activity as BaseFragmentInterface) {
+                        setToolbarVisible(showToolbar)
+                        setToolbarTitle(title)
+                        setShowBack(showBack)
+                    }
+                }
             }
+            else -> {}
         }
     }
 

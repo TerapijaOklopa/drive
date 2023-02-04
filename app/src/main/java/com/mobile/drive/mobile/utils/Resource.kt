@@ -1,4 +1,4 @@
-package com.mobile.drive.mobile.vo
+package com.mobile.drive.mobile.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val error: ErrorData?) {
     companion object {

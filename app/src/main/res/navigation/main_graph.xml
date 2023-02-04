@@ -55,13 +55,9 @@
         tools:layout="@layout/fragment_folder_details">
 
         <argument
-            android:name="folderId"
-            app:argType="string" />
-
-        <argument
-            android:name="name"
-            app:argType="string" />
-
+            android:name="file"
+            app:argType="com.mobile.drive.mobile.ui.model.FileUiModel"
+            app:nullable="false" />
     </fragment>
 
 </navigation>

@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.mobile.drive.data.drive.DriveRepository
 import com.mobile.drive.mobile.ui.model.FileUiModel
 import com.mobile.drive.mobile.ui.model.FileUiModel.Companion.toFileUIModelList
+import com.mobile.drive.mobile.utils.ErrorData
+import com.mobile.drive.mobile.utils.Resource
 import com.mobile.drive.mobile.utils.coroutines.CoroutineDispatcherProvider
-import com.mobile.drive.mobile.vo.ErrorData
-import com.mobile.drive.mobile.vo.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,16 +16,16 @@ import kotlinx.coroutines.launch
 class FolderDetailsViewModel(
     private val driveRepository: DriveRepository,
     private val dispatcherProvider: CoroutineDispatcherProvider,
-    folderId: String
+    folder: FileUiModel
 ) : ViewModel() {
 
-    private val folderIdList = mutableListOf(folderId)
+    private val folderIdList = mutableListOf(folder)
 
     private var _uiContent = MutableStateFlow(FolderDetailsContent())
     val uiContent = _uiContent.asStateFlow()
 
     init {
-        getDriveFiles(folderId)
+        getDriveFiles(folder.id ?: "")
     }
 
     private fun getDriveFiles(id: String) {
@@ -45,9 +45,7 @@ class FolderDetailsViewModel(
                     _uiContent.update {
                         it.copy(
                             state = Resource.error(
-                                ErrorData(
-                                    message = t.message ?: ""
-                                )
+                                ErrorData(message = t.message)
                             )
                         )
                     }
@@ -57,20 +55,20 @@ class FolderDetailsViewModel(
     }
 
     fun onItemClick(file: FileUiModel) {
-        if (file.id == null || folderIdList[folderIdList.size - 1] == file.id) {
+        if (file.id == null || folderIdList.contains(file)) {
             return
         }
-        folderIdList.add(file.id)
+        folderIdList.add(file)
         getDriveFiles(file.id)
     }
 
-    fun handleBack(): Boolean {
+    fun handleBack(): FileUiModel? {
         folderIdList.removeLast()
         if (folderIdList.isNotEmpty()) {
-            getDriveFiles(folderIdList[folderIdList.size - 1])
-            return false
+            getDriveFiles(folderIdList.last().id ?: "")
+            return folderIdList.last()
         }
-        return true
+        return null
     }
 }
 

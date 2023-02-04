@@ -8,13 +8,15 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.mobile.drive.R
 import com.mobile.drive.databinding.FragmentFolderDetailsBinding
 import com.mobile.drive.mobile.ui.BaseActivity
 import com.mobile.drive.mobile.ui.BaseFragment
 import com.mobile.drive.mobile.ui.drive.FileAdapter
 import com.mobile.drive.mobile.ui.model.FileUiModel
+import com.mobile.drive.mobile.utils.Status
+import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.autoCleared
-import com.mobile.drive.mobile.vo.Status
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -25,7 +27,7 @@ class FolderDetailsFragment : MenuProvider, BaseFragment(
     private var binding: FragmentFolderDetailsBinding by autoCleared()
     private val args: FolderDetailsFragmentArgs by navArgs()
     private val viewModel: FolderDetailsViewModel by viewModel() {
-        parametersOf(args.folderId)
+        parametersOf(args.file)
     }
     private var adapter: FileAdapter by autoCleared()
 
@@ -39,14 +41,17 @@ class FolderDetailsFragment : MenuProvider, BaseFragment(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (viewModel.handleBack()) {
+                    val folder = viewModel.handleBack()
+                    if (folder == null) {
                         findNavController().popBackStack()
+                    } else {
+                        (activity as BaseActivity).setToolbarTitle(folder.name)
                     }
                 }
             }
         )
         binding = FragmentFolderDetailsBinding.inflate(inflater)
-        title = args.name
+        title = args.file.name
         setupView()
         setupObservers()
         activity?.addMenuProvider(this, viewLifecycleOwner)
@@ -62,9 +67,7 @@ class FolderDetailsFragment : MenuProvider, BaseFragment(
         viewLifecycleOwner.lifecycleScope.launch {
             uiContent.collect {
                 when (it.state.status) {
-                    Status.RUNNING -> {
-                        showLoading()
-                    }
+                    Status.RUNNING -> showLoading()
                     Status.SUCCESS -> {
                         val items = it.state.data
                         binding.apply {
@@ -74,9 +77,10 @@ class FolderDetailsFragment : MenuProvider, BaseFragment(
                         adapter.submitList(items)
                         hideLoading()
                     }
-                    Status.FAILED -> {
-                        showError(it.state.error?.message ?: "")
-                    }
+                    Status.FAILED -> showError(
+                        it.state.error?.message
+                            ?: Strings.get(R.string.error_unexpected_message)
+                    )
                     Status.EMPTY -> { // do nothing
                     }
                 }
@@ -101,9 +105,12 @@ class FolderDetailsFragment : MenuProvider, BaseFragment(
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == android.R.id.home) {
-            if (viewModel.handleBack()) {
+            val folder = viewModel.handleBack()
+            if (folder == null) {
                 findNavController().popBackStack()
                 return false
+            } else {
+                (activity as BaseActivity).setToolbarTitle(folder.name)
             }
             return true
         }

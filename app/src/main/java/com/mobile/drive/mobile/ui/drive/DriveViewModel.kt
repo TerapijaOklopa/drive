@@ -2,15 +2,13 @@ package com.mobile.drive.mobile.ui.drive
 
 import androidx.lifecycle.ViewModel
 import com.google.api.services.drive.model.File
-import com.mobile.drive.R
 import com.mobile.drive.data.drive.DriveRepository
 import com.mobile.drive.mobile.ui.model.FileUiModel
 import com.mobile.drive.mobile.ui.model.FileUiModel.Companion.toFileUIModelList
 import com.mobile.drive.mobile.utils.DelayedTextWatcher
-import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.coroutines.CoroutineDispatcherProvider
-import com.mobile.drive.mobile.vo.ErrorData
-import com.mobile.drive.mobile.vo.Resource
+import com.mobile.drive.mobile.utils.ErrorData
+import com.mobile.drive.mobile.utils.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,10 +41,7 @@ class DriveViewModel(
                     _uiContent.update {
                         it.copy(
                             state = Resource.error(
-                                ErrorData(
-                                    message = t.message
-                                        ?: Strings.get(R.string.error_unexpected_message)
-                                )
+                                ErrorData(message = t.message)
                             )
                         )
                     }
@@ -93,10 +88,7 @@ class DriveViewModel(
                         it.copy(
                             query = query,
                             state = Resource.error(
-                                ErrorData(
-                                    message = t.message
-                                        ?: Strings.get(R.string.error_unexpected_message)
-                                )
+                                ErrorData(message = t.message)
                             )
                         )
                     }

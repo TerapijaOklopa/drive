@@ -13,9 +13,9 @@ import com.mobile.drive.databinding.FragmentDriveBinding
 import com.mobile.drive.mobile.ui.BaseFragment
 import com.mobile.drive.mobile.ui.model.FileUiModel
 import com.mobile.drive.mobile.utils.GoogleUtil
+import com.mobile.drive.mobile.utils.Status
 import com.mobile.drive.mobile.utils.Strings
 import com.mobile.drive.mobile.utils.autoCleared
-import com.mobile.drive.mobile.vo.Status
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -52,9 +52,7 @@ class DriveFragment : MenuProvider, BaseFragment(
         viewLifecycleOwner.lifecycleScope.launch {
             uiContent.collect {
                 when (it.state.status) {
-                    Status.RUNNING -> {
-                        showLoading()
-                    }
+                    Status.RUNNING -> showLoading()
                     Status.SUCCESS -> {
                         val items = it.state.data
                         binding.apply {
@@ -64,10 +62,11 @@ class DriveFragment : MenuProvider, BaseFragment(
                         adapter.submitList(items)
                         hideLoading()
                     }
-                    Status.FAILED -> {
-                        hideLoading()
-                        showError(it.state.error?.message ?: "")
-                    }
+                    Status.FAILED ->
+                        showError(
+                            it.state.error?.message
+                                ?: Strings.get(R.string.error_unexpected_message)
+                        )
                     Status.EMPTY -> { // do nothing
                     }
                 }
@@ -76,14 +75,9 @@ class DriveFragment : MenuProvider, BaseFragment(
     }
 
     private fun onItemClick(file: FileUiModel) {
-        file.id?.let { fileId ->
-            findNavController().navigate(
-                DriveFragmentDirections.actionFolderDetails(
-                    fileId,
-                    file.name ?: ""
-                )
-            )
-        }
+        findNavController().navigate(
+            DriveFragmentDirections.actionFolderDetails(file)
+        )
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

@@ -15,7 +15,7 @@ val viewModelModule = module {
         FolderDetailsViewModel(
             get(),
             CoroutineDispatcherProvider(),
-            folderId = parameters.get()
+            folder = parameters.get()
         )
     }
 }
