@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/list_item_padding"
+    android:layout_marginTop="@dimen/list_item_small_padding"
+    app:cardBackgroundColor="@color/list_item_background"
+    app:cardCornerRadius="@dimen/common_corner_small_radius"
+    app:cardElevation="@dimen/common_elevation"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/menu_item_padding_horizontal"
+        android:paddingVertical="@dimen/menu_item_padding_vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/list_item_icon_size"
+            android:layout_height="@dimen/list_item_icon_size"
+            android:contentDescription="icon"
+            android:padding="@dimen/list_item_padding"
+            android:src="@drawable/ic_folder"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_item_padding"
+            tools:text="Features" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

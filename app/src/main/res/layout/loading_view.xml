@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/backgroundView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="@dimen/loading_dialog_size"
+        android:layout_height="@dimen/loading_dialog_size"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_loading_progress"
+        android:elevation="@dimen/common_elevation"
+        android:indeterminate="true"
+        android:padding="@dimen/common_activity_small_padding" />
+
+</FrameLayout>
